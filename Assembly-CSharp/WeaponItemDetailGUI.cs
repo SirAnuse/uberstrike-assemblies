@@ -36,7 +36,7 @@ public class WeaponItemDetailGUI : IBaseItemDetailGUI
 			{
 				GUITools.ProgressBar(new Rect(175f, 95f, 165f, 12f), LocalizedStrings.Accuracy, WeaponConfigurationHelper.GetAccuracySpreadNormalized(this._item), ColorScheme.ProgressBar, 64);
 				GUITools.ProgressBar(new Rect(175f, 111f, 165f, 12f), LocalizedStrings.Recoil, WeaponConfigurationHelper.GetRecoilKickbackNormalized(this._item), ColorScheme.ProgressBar, 64);
-                GUITools.ProgressBar(new Rect(175f, 127f, 165f, 12f), LocalizedStrings.ArmorPierced, WeaponConfigurationHelper.GetArmorPiercedNormalized(this._item), ColorScheme.ProgressBar, 64);
+                //GUITools.ProgressBar(new Rect(175f, 127f, 165f, 12f), LocalizedStrings.ArmorPierced, WeaponConfigurationHelper.GetArmorPiercedNormalized(this._item), ColorScheme.ProgressBar, 64);
 			}
 		}
 	}

@@ -16,7 +16,7 @@ public static class WeaponConfigurationHelper
 		WeaponConfigurationHelper.MaxAccuracySpread = 1f;
 		WeaponConfigurationHelper.MaxDamage = 1f;
 		WeaponConfigurationHelper.MaxAmmo = 1f;
-        WeaponConfigurationHelper.MaxArmorPierced = 1f;
+        //WeaponConfigurationHelper.MaxArmorPierced = 1f;
 	}
 
 	// Token: 0x06001DCB RID: 7627 RVA: 0x00093AC8 File Offset: 0x00091CC8
@@ -45,16 +45,16 @@ public static class WeaponConfigurationHelper
 			WeaponConfigurationHelper.MaxDamage = (float)(from item in shopView.WeaponItems
 			orderby item.DamagePerProjectile descending
 			select item).First<UberStrikeItemWeaponView>().DamagePerProjectile;
-            WeaponConfigurationHelper.MaxArmorPierced = (float)(from item in shopView.WeaponItems
-                                                          orderby item.ArmorPierced descending
-                                                          select item).First<UberStrikeItemWeaponView>().ArmorPierced;
+            //WeaponConfigurationHelper.MaxArmorPierced = (float)(from item in shopView.WeaponItems
+            //                                              orderby item.ArmorPierced descending
+            //                                              select item).First<UberStrikeItemWeaponView>().ArmorPierced;
             foreach (UberStrikeItemWeaponView uberStrikeItemWeaponView in shopView.WeaponItems)
 			{
 				WeaponConfigurationHelper.rateOfFireCache[uberStrikeItemWeaponView.ID] = new SecureMemory<int>(uberStrikeItemWeaponView.RateOfFire);
 				WeaponConfigurationHelper.spreadCache[uberStrikeItemWeaponView.ID] = new SecureMemory<int>(uberStrikeItemWeaponView.AccuracySpread);
 				WeaponConfigurationHelper.speedCache[uberStrikeItemWeaponView.ID] = new SecureMemory<int>(uberStrikeItemWeaponView.ProjectileSpeed);
 				WeaponConfigurationHelper.splashCache[uberStrikeItemWeaponView.ID] = new SecureMemory<int>(uberStrikeItemWeaponView.SplashRadius);
-                WeaponConfigurationHelper.armorPiercedCache[uberStrikeItemWeaponView.ID] = new SecureMemory<int>(uberStrikeItemWeaponView.ArmorPierced);
+                //WeaponConfigurationHelper.armorPiercedCache[uberStrikeItemWeaponView.ID] = new SecureMemory<int>(uberStrikeItemWeaponView.ArmorPierced);
             }
 		}
 	}
@@ -89,7 +89,7 @@ public static class WeaponConfigurationHelper
 	// (set) Token: 0x06001DD7 RID: 7639 RVA: 0x00013CB4 File Offset: 0x00011EB4
 	public static float MaxRecoilKickback { get; private set; }
 
-    public static float MaxArmorPierced { get; private set; }
+    //public static float MaxArmorPierced { get; private set; }
 
 	// Token: 0x17000679 RID: 1657
 	// (get) Token: 0x06001DD8 RID: 7640 RVA: 0x00013CBC File Offset: 0x00011EBC
@@ -114,10 +114,10 @@ public static class WeaponConfigurationHelper
 		return (view == null) ? 0f : ((float)view.AccuracySpread / 10f / WeaponConfigurationHelper.MaxAccuracySpread);
 	}
 
-    public static float GetArmorPiercedNormalized(UberStrikeItemWeaponView view)
+    /*public static float GetArmorPiercedNormalized(UberStrikeItemWeaponView view)
     {
         return (view == null) ? 0f : ((float)view.ArmorPierced / 10f / WeaponConfigurationHelper.MaxArmorPierced);
-    }
+    }*/
 
     // Token: 0x06001DDD RID: 7645 RVA: 0x00013D35 File Offset: 0x00011F35
     public static float GetProjectileSpeedNormalized(UberStrikeItemWeaponView view)
@@ -149,10 +149,10 @@ public static class WeaponConfigurationHelper
 		return (float)((view == null) ? 0 : view.MaxAmmo);
 	}
 
-    public static float GetArmorPierced(UberStrikeItemWeaponView view)
+    /*public static float GetArmorPierced(UberStrikeItemWeaponView view)
     {
         return (float)((view == null) ? 0 : view.ArmorPierced);
-    }
+    }*/
 
     // Token: 0x06001DE2 RID: 7650 RVA: 0x00013DD2 File Offset: 0x00011FD2
     public static float GetDamage(UberStrikeItemWeaponView view)
@@ -246,7 +246,7 @@ public static class WeaponConfigurationHelper
 		return 0;
 	}
 
-    public static int GetSecureArmorPierced(int itemId)
+    /*public static int GetSecureArmorPierced(int itemId)
     {
         SecureMemory<int> secureMemory;
         if (WeaponConfigurationHelper.armorPiercedCache.TryGetValue(itemId, out secureMemory))
@@ -254,7 +254,7 @@ public static class WeaponConfigurationHelper
             return secureMemory.ReadData(true);
         }
         return 1;
-    }
+    }*/
 
     // Token: 0x040019FD RID: 6653
     private static Dictionary<int, SecureMemory<int>> rateOfFireCache = new Dictionary<int, SecureMemory<int>>();
@@ -269,5 +269,5 @@ public static class WeaponConfigurationHelper
 	private static Dictionary<int, SecureMemory<int>> splashCache = new Dictionary<int, SecureMemory<int>>();
 
     // Token: 0x04001A00 RID: 6656
-    private static Dictionary<int, SecureMemory<int>> armorPiercedCache = new Dictionary<int, SecureMemory<int>>();
+    //private static Dictionary<int, SecureMemory<int>> armorPiercedCache = new Dictionary<int, SecureMemory<int>>();
 }

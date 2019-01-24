@@ -12,7 +12,7 @@ namespace UberStrike.DataCenter.Common.Entities
 		}
 
 		// Token: 0x06000D94 RID: 3476 RVA: 0x00011658 File Offset: 0x0000F858
-		public UberstrikeWeaponConfigView(int damageKnockback, int damagePerProjectile, int accuracySpread, int armorPierced, int recoilKickback, int startAmmo, int maxAmmo, int missileTimeToDetonate, int missileForceImpulse, int missileBounciness, int rateOfire, int splashRadius, int projectilesPerShot, int projectileSpeed, int recoilMovement)
+		public UberstrikeWeaponConfigView(int damageKnockback, int damagePerProjectile, int accuracySpread, int recoilKickback, int startAmmo, int maxAmmo, int missileTimeToDetonate, int missileForceImpulse, int missileBounciness, int rateOfire, int splashRadius, int projectilesPerShot, int projectileSpeed, int recoilMovement)
 		{
 			this.DamageKnockback = damageKnockback;
 			this.DamagePerProjectile = damagePerProjectile;
@@ -20,7 +20,7 @@ namespace UberStrike.DataCenter.Common.Entities
 			this.RecoilKickback = recoilKickback;
 			this.StartAmmo = startAmmo;
 			this.MaxAmmo = maxAmmo;
-            this.ArmorPierced = armorPierced;
+            //this.ArmorPierced = armorPierced;
 			this.MissileTimeToDetonate = missileTimeToDetonate;
 			this.MissileForceImpulse = missileForceImpulse;
 			this.MissileBounciness = missileBounciness;
@@ -46,7 +46,7 @@ namespace UberStrike.DataCenter.Common.Entities
 		// (set) Token: 0x06000D9A RID: 3482 RVA: 0x000097DC File Offset: 0x000079DC
 		public int AccuracySpread { get; set; }
 
-        public int ArmorPierced { get; set; }
+        //public int ArmorPierced { get; set; }
 
 		// Token: 0x17000270 RID: 624
 		// (get) Token: 0x06000D9B RID: 3483 RVA: 0x000097E5 File Offset: 0x000079E5
@@ -118,8 +118,8 @@ namespace UberStrike.DataCenter.Common.Entities
 			stringBuilder.Append(this.DamagePerProjectile);
 			stringBuilder.Append("][AccuracySpread: ");
 			stringBuilder.Append(this.AccuracySpread);
-            stringBuilder.Append("][ArmorPierced: ");
-            stringBuilder.Append(this.ArmorPierced);
+            /*stringBuilder.Append("][ArmorPierced: ");
+            stringBuilder.Append(this.ArmorPierced);*/
             stringBuilder.Append("][RecoilKickback: ");
 			stringBuilder.Append(this.RecoilKickback);
 			stringBuilder.Append("][StartAmmo: ");

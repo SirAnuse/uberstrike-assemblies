@@ -175,8 +175,8 @@ public class ItemToolTip : AutoMonoBehaviour<ItemToolTip>
 					this._fireRate.Max = WeaponConfigurationHelper.MaxRateOfFire;
 					this._accuracy.Value = WeaponConfigurationHelper.MaxAccuracySpread - WeaponConfigurationHelper.GetAccuracySpread(uberStrikeItemWeaponView2);
 					this._accuracy.Max = WeaponConfigurationHelper.MaxAccuracySpread;
-                    _armorPierced.Value = WeaponConfigurationHelper.GetArmorPierced(uberStrikeItemWeaponView2);
-                    _armorPierced.Max = WeaponConfigurationHelper.MaxArmorPierced;
+                    //_armorPierced.Value = WeaponConfigurationHelper.GetArmorPierced(uberStrikeItemWeaponView2);
+                    //_armorPierced.Max = WeaponConfigurationHelper.MaxArmorPierced;
 
                     if (item.View.ItemProperties.ContainsKey(ItemPropertyType.CritDamageBonus))
 					{
@@ -302,7 +302,7 @@ public class ItemToolTip : AutoMonoBehaviour<ItemToolTip>
 		this.ProgressBar(new Rect(20f, 135f, 200f, 12f), this._fireRate.Title, 1f - this._fireRate.Percent, ColorScheme.ProgressBar, string.Empty);
 		this.ProgressBar(new Rect(20f, 150f, 200f, 12f), this._accuracy.Title, this._accuracy.Percent, ColorScheme.ProgressBar, string.Empty);
 		this.ProgressBar(new Rect(20f, 165f, 200f, 12f), this._ammo.Title, this._ammo.Percent, ColorScheme.ProgressBar, string.Empty);
-        this.ProgressBar(new Rect(20f, 180f, 200f, 12f), this._armorPierced.Title, this._armorPierced.Percent, ColorScheme.ProgressBar, string.Empty);
+        //this.ProgressBar(new Rect(20f, 180f, 200f, 12f), this._armorPierced.Title, this._armorPierced.Percent, ColorScheme.ProgressBar, string.Empty);
         if (flag)
 		{
 			UberStrikeItemWeaponView view = Singleton<DragAndDrop>.Instance.DraggedItem.Item.View as UberStrikeItemWeaponView;
@@ -380,7 +380,7 @@ public class ItemToolTip : AutoMonoBehaviour<ItemToolTip>
 	// Token: 0x040009D5 RID: 2517
 	private ItemToolTip.FloatPropertyBar _ammo = new ItemToolTip.FloatPropertyBar(LocalizedStrings.Ammo);
 
-    private ItemToolTip.FloatPropertyBar _armorPierced = new ItemToolTip.FloatPropertyBar(LocalizedStrings.ArmorPierced);
+    //private ItemToolTip.FloatPropertyBar _armorPierced = new ItemToolTip.FloatPropertyBar(LocalizedStrings.ArmorPierced);
 
     // Token: 0x040009D6 RID: 2518
     private ItemToolTip.FloatPropertyBar _damage = new ItemToolTip.FloatPropertyBar(LocalizedStrings.Damage);

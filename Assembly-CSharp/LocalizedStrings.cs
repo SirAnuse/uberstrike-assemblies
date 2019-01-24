@@ -2742,8 +2742,8 @@ public static class LocalizedStrings
 	public static string ScreenshotTaken;
 
 	// Token: 0x04001EB2 RID: 7858
-	public static string ArmorDestroyed = "Armor Destroyed";
+	//public static string ArmorDestroyed = "Armor Destroyed";
 
 	// Token: 0x04001EB3 RID: 7859
-	public static string ArmorPierced = "Armor Pierced";
+	//public static string ArmorPierced = "Armor Pierced";
 }

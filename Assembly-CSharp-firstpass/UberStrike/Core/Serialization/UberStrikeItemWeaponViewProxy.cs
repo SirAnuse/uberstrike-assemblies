@@ -17,7 +17,7 @@ namespace UberStrike.Core.Serialization
 			using (MemoryStream memoryStream = new MemoryStream())
 			{
 				Int32Proxy.Serialize(memoryStream, instance.AccuracySpread);
-                Int32Proxy.Serialize(memoryStream, instance.ArmorPierced);
+                //Int32Proxy.Serialize(memoryStream, instance.ArmorPierced);
                 Int32Proxy.Serialize(memoryStream, instance.CombatRange);
 				Int32Proxy.Serialize(memoryStream, instance.CriticalStrikeBonus);
 				if (instance.CustomProperties != null)
@@ -106,7 +106,7 @@ namespace UberStrike.Core.Serialization
             int num = Int32Proxy.Deserialize(bytes);
 			UberStrikeItemWeaponView uberStrikeItemWeaponView = new UberStrikeItemWeaponView();
 			uberStrikeItemWeaponView.AccuracySpread = Int32Proxy.Deserialize(bytes);
-            uberStrikeItemWeaponView.ArmorPierced = Int32Proxy.Deserialize(bytes);
+            //uberStrikeItemWeaponView.ArmorPierced = Int32Proxy.Deserialize(bytes);
             uberStrikeItemWeaponView.CombatRange = Int32Proxy.Deserialize(bytes);
 			uberStrikeItemWeaponView.CriticalStrikeBonus = Int32Proxy.Deserialize(bytes);
 			if ((num & 1) != 0)

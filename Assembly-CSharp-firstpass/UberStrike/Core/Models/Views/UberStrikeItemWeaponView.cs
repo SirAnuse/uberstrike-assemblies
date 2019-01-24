@@ -93,7 +93,7 @@ namespace UberStrike.Core.Models.Views
 			}
 		}
 
-        public int ArmorPierced
+        /*public int ArmorPierced
         {
             get
             {
@@ -103,7 +103,7 @@ namespace UberStrike.Core.Models.Views
             {
                 this._armorPierced = value;
             }
-        }
+        }*/
 
         // Token: 0x17000386 RID: 902
         // (get) Token: 0x06000FF6 RID: 4086 RVA: 0x0000AB93 File Offset: 0x00008D93
