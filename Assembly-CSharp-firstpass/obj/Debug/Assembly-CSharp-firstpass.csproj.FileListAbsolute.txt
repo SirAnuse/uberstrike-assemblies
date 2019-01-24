@@ -1,0 +1,16 @@
+C:\Users\Jesus\Desktop\UberStrokAssemblies\Assembly-CSharp-firstpass\bin\Debug\Assembly-CSharp-firstpass.dll
+C:\Users\Jesus\Desktop\UberStrokAssemblies\Assembly-CSharp-firstpass\bin\Debug\Assembly-CSharp-firstpass.pdb
+C:\Users\Jesus\Desktop\UberStrokAssemblies\Assembly-CSharp-firstpass\bin\Debug\Photon3Unity3D.dll
+C:\Users\Jesus\Desktop\UberStrokAssemblies\Assembly-CSharp-firstpass\bin\Debug\System.dll
+C:\Users\Jesus\Desktop\UberStrokAssemblies\Assembly-CSharp-firstpass\bin\Debug\System.Xml.dll
+C:\Users\Jesus\Desktop\UberStrokAssemblies\Assembly-CSharp-firstpass\bin\Debug\UnityEngine.dll
+C:\Users\Jesus\Desktop\UberStrokAssemblies\Assembly-CSharp-firstpass\obj\Debug\Assembly-CSharp-firstpass.dll
+C:\Users\Jesus\Desktop\UberStrokAssemblies\Assembly-CSharp-firstpass\obj\Debug\Assembly-CSharp-firstpass.pdb
+C:\Users\Jesus\Documents\Visual Studio 2015\Projects\UberStrokAssemblies\Assembly-CSharp-firstpass\bin\Debug\Assembly-CSharp-firstpass.dll
+C:\Users\Jesus\Documents\Visual Studio 2015\Projects\UberStrokAssemblies\Assembly-CSharp-firstpass\bin\Debug\Assembly-CSharp-firstpass.pdb
+C:\Users\Jesus\Documents\Visual Studio 2015\Projects\UberStrokAssemblies\Assembly-CSharp-firstpass\bin\Debug\Photon3Unity3D.dll
+C:\Users\Jesus\Documents\Visual Studio 2015\Projects\UberStrokAssemblies\Assembly-CSharp-firstpass\bin\Debug\System.dll
+C:\Users\Jesus\Documents\Visual Studio 2015\Projects\UberStrokAssemblies\Assembly-CSharp-firstpass\bin\Debug\System.Xml.dll
+C:\Users\Jesus\Documents\Visual Studio 2015\Projects\UberStrokAssemblies\Assembly-CSharp-firstpass\bin\Debug\UnityEngine.dll
+C:\Users\Jesus\Documents\Visual Studio 2015\Projects\UberStrokAssemblies\Assembly-CSharp-firstpass\obj\Debug\Assembly-CSharp-firstpass.dll
+C:\Users\Jesus\Documents\Visual Studio 2015\Projects\UberStrokAssemblies\Assembly-CSharp-firstpass\obj\Debug\Assembly-CSharp-firstpass.pdb

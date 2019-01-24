@@ -1,0 +1,24 @@
+C:\Users\Jesus\Desktop\UberStrokAssemblies\Assembly-CSharp\bin\Debug\Assembly-CSharp.dll
+C:\Users\Jesus\Desktop\UberStrokAssemblies\Assembly-CSharp\bin\Debug\Assembly-CSharp.pdb
+C:\Users\Jesus\Desktop\UberStrokAssemblies\Assembly-CSharp\bin\Debug\Assembly-CSharp-firstpass.dll
+C:\Users\Jesus\Desktop\UberStrokAssemblies\Assembly-CSharp\bin\Debug\Assembly-UnityScript-firstpass.dll
+C:\Users\Jesus\Desktop\UberStrokAssemblies\Assembly-CSharp\bin\Debug\Photon3Unity3D.dll
+C:\Users\Jesus\Desktop\UberStrokAssemblies\Assembly-CSharp\bin\Debug\System.dll
+C:\Users\Jesus\Desktop\UberStrokAssemblies\Assembly-CSharp\bin\Debug\System.Xml.dll
+C:\Users\Jesus\Desktop\UberStrokAssemblies\Assembly-CSharp\bin\Debug\UnityEngine.dll
+C:\Users\Jesus\Desktop\UberStrokAssemblies\Assembly-CSharp\bin\Debug\Boo.Lang.dll
+C:\Users\Jesus\Desktop\UberStrokAssemblies\Assembly-CSharp\bin\Debug\UnityScript.Lang.dll
+C:\Users\Jesus\Desktop\UberStrokAssemblies\Assembly-CSharp\obj\Debug\Assembly-CSharp.dll
+C:\Users\Jesus\Desktop\UberStrokAssemblies\Assembly-CSharp\obj\Debug\Assembly-CSharp.pdb
+C:\Users\Jesus\Documents\Visual Studio 2015\Projects\UberStrokAssemblies\Assembly-CSharp\bin\Debug\Assembly-CSharp.dll
+C:\Users\Jesus\Documents\Visual Studio 2015\Projects\UberStrokAssemblies\Assembly-CSharp\bin\Debug\Assembly-CSharp.pdb
+C:\Users\Jesus\Documents\Visual Studio 2015\Projects\UberStrokAssemblies\Assembly-CSharp\bin\Debug\Assembly-CSharp-firstpass.dll
+C:\Users\Jesus\Documents\Visual Studio 2015\Projects\UberStrokAssemblies\Assembly-CSharp\bin\Debug\Assembly-UnityScript-firstpass.dll
+C:\Users\Jesus\Documents\Visual Studio 2015\Projects\UberStrokAssemblies\Assembly-CSharp\bin\Debug\Photon3Unity3D.dll
+C:\Users\Jesus\Documents\Visual Studio 2015\Projects\UberStrokAssemblies\Assembly-CSharp\bin\Debug\System.dll
+C:\Users\Jesus\Documents\Visual Studio 2015\Projects\UberStrokAssemblies\Assembly-CSharp\bin\Debug\System.Xml.dll
+C:\Users\Jesus\Documents\Visual Studio 2015\Projects\UberStrokAssemblies\Assembly-CSharp\bin\Debug\UnityEngine.dll
+C:\Users\Jesus\Documents\Visual Studio 2015\Projects\UberStrokAssemblies\Assembly-CSharp\bin\Debug\Assembly-CSharp-firstpass.pdb
+C:\Users\Jesus\Documents\Visual Studio 2015\Projects\UberStrokAssemblies\Assembly-CSharp\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
+C:\Users\Jesus\Documents\Visual Studio 2015\Projects\UberStrokAssemblies\Assembly-CSharp\obj\Debug\Assembly-CSharp.dll
+C:\Users\Jesus\Documents\Visual Studio 2015\Projects\UberStrokAssemblies\Assembly-CSharp\obj\Debug\Assembly-CSharp.pdb
