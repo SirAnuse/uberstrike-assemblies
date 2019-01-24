@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Cmune.DataCenter.Common.Entities;
 using UberStrike.Core.Models.Views;
 using UberStrike.Core.Types;
@@ -348,16 +349,20 @@ public class CreateGamePanelGUI : MonoBehaviour, IPanelGui
 				GUI.contentColor = Color.white;
 			}
 
-            for (int i = 0; i < Enum.GetValues(typeof(GameFlags.GAME_FLAGS)).Length; i++)
+            var counter = 1;
+            var flags = Enum.GetValues(typeof(GameFlags.GAME_FLAGS));
+            
+            for (int i = 1; i < (int)flags.GetValue(flags.Length - 1) + 1; i *= 2)
             {
                 var gameFlag = (GameFlags.GAME_FLAGS)i;
-                var y = 180 + (20 * Math.Ceiling(i + 1 / 2f));
-                var column = i + 1;
+                var y = 200 + (20 * Math.Ceiling(counter / 2f));
+                var column = counter;
                 while (column > 2)
                     column -= 2;
                 var x = 8 + ((column - 1) * 165f);
 
                 ToggleGameFlag(gameFlag, (int)y, (int)x, gameFlag.ToString());
+                counter++;
             }
 
 			GUI.EndGroup();
@@ -371,14 +376,14 @@ public class CreateGamePanelGUI : MonoBehaviour, IPanelGui
     // Token: 0x06000CC7 RID: 3271 RVA: 0x000570B4 File Offset: 0x000552B4
     private void ToggleGameFlag(GameFlags.GAME_FLAGS flag, int y, int x, string content)
 	{
-		bool flag2 = GUI.Toggle(new Rect(x, y, 160f, 16f), this._gameFlags == flag, content, BlueStonez.toggle);
+		bool flag2 = GUI.Toggle(new Rect(x, y, 160f, 16f), GameFlags.IsFlagSet(flag, (int)_gameFlags), content, BlueStonez.toggle);
 		if (flag2)
 		{
-			this._gameFlags = flag;
+			this._gameFlags |= flag;
 		}
 		else if (this._gameFlags == flag)
 		{
-			this._gameFlags = GameFlags.GAME_FLAGS.None;
+			this._gameFlags -= flag;
 		}
 	}
 
