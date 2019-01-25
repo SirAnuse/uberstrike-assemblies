@@ -8,4 +8,4 @@ A modified UberStrike client, made to be used with the v0.1.0-alpha branch of [S
 This list is incomplete, and will be updated as I update the client itself.
 
 ## License
-There is currently no license on this project, so feel free to do whatever you want to it for whatever reason.
+There is currently no license on this project, so feel free to do whatever you want to it for whatever reason - but please note that I am not affiliated with CMUNE in any way whatsoever, and have no plans to become so in the future. This repository may be subject to takedown without notice.
