@@ -471,9 +471,7 @@ public class LoadoutManager : Singleton<LoadoutManager>
 		{
 			if (keyValuePair.Value == item)
 			{
-				Dictionary<global::LoadoutSlotType, IUnityItem>.Enumerator enumerator = new Dictionary<global::LoadoutSlotType, IUnityItem>.Enumerator();
-				KeyValuePair<global::LoadoutSlotType, IUnityItem> keyValuePair2 = enumerator.Current;
-				slot = keyValuePair2.Key;
+				slot = keyValuePair.Key;
 				return true;
 			}
 		}

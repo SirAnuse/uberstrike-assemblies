@@ -311,11 +311,11 @@ public class ShopPageGUI : PageGUI
 		global::LoadoutSlotType loadoutSlotType;
 		if (item != null && Singleton<LoadoutManager>.Instance.TryGetSlotForItem(item, out loadoutSlotType))
 		{
-			switch (item.View.ItemType)
+            switch (item.View.ItemType)
 			{
 			case UberstrikeItemType.Weapon:
 				GameState.Current.Avatar.UnassignWeapon(loadoutSlotType);
-				GameState.Current.Avatar.Decorator.AnimationController.ChangeWeaponType((UberstrikeItemClass)0);
+				GameState.Current.Avatar.Decorator.AnimationController.ChangeWeaponType(0);
 				break;
 			case UberstrikeItemType.Gear:
 				this.ShowUnequipGearFx(item, loadoutSlotType);

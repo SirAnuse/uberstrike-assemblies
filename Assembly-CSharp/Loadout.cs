@@ -113,24 +113,24 @@ public class Loadout
 		if (item != null && this.CanGoInSlot(slot, item.View.ItemType))
 		{
 			this._items[slot] = item;
-			switch (slot)
-			{
-			case global::LoadoutSlotType.GearHead:
-			case global::LoadoutSlotType.GearFace:
-			case global::LoadoutSlotType.GearGloves:
-			case global::LoadoutSlotType.GearUpperBody:
-			case global::LoadoutSlotType.GearLowerBody:
-			case global::LoadoutSlotType.GearBoots:
-			case global::LoadoutSlotType.GearHolo:
-				this.OnGearChanged();
-				break;
-			case global::LoadoutSlotType.WeaponMelee:
-			case global::LoadoutSlotType.WeaponPrimary:
-			case global::LoadoutSlotType.WeaponSecondary:
-			case global::LoadoutSlotType.WeaponTertiary:
-				this.OnWeaponChanged(slot);
-				break;
-			}
+            switch (slot)
+            {
+                case global::LoadoutSlotType.GearHead:
+                case global::LoadoutSlotType.GearFace:
+                case global::LoadoutSlotType.GearGloves:
+                case global::LoadoutSlotType.GearUpperBody:
+                case global::LoadoutSlotType.GearLowerBody:
+                case global::LoadoutSlotType.GearBoots:
+                case global::LoadoutSlotType.GearHolo:
+                    this.OnGearChanged();
+                    break;
+                case global::LoadoutSlotType.WeaponMelee:
+                case global::LoadoutSlotType.WeaponPrimary:
+                case global::LoadoutSlotType.WeaponSecondary:
+                case global::LoadoutSlotType.WeaponTertiary:
+                    this.OnWeaponChanged(slot);
+                    break;
+            }
 		}
 	}
 
