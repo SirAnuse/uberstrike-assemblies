@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Linq;
+using System.Text.RegularExpressions;
+using System.Reflection;
+using System.Reflection.Emit;
 using Cmune.DataCenter.Common.Entities;
 using UberStrike.Core.Models.Views;
 using UberStrike.Core.Types;
@@ -259,133 +262,141 @@ public class CreateGamePanelGUI : MonoBehaviour, IPanelGui
 		GUI.EndGroup();
 	}
 
-	// Token: 0x06000CC6 RID: 3270 RVA: 0x000568FC File Offset: 0x00054AFC
-	private void DrawGameConfiguration(Rect rect)
-	{
-		if (this.IsModeSupported)
-		{
-			MapSettings mapSettings = this._mapSelected.View.Settings[this._modeSelection.Current];
-			if (ApplicationDataManager.IsMobile)
-			{
-				mapSettings.PlayersMax = Mathf.Min(mapSettings.PlayersMax, 6);
-			}
-			GUI.BeginGroup(rect);
-			GUI.Label(new Rect(6f, 0f, 100f, 25f), LocalizedStrings.GameName, BlueStonez.label_interparkbold_18pt_left);
-			if (PlayerDataManager.AccessLevel >= MemberAccessLevel.Moderator)
-			{
-				GUI.SetNextControlName("GameName");
-				this._gameName = GUI.TextField(new Rect(130f, 5f, this._textFieldWidth, 19f), this._gameName, 18, BlueStonez.textField);
-				if (string.IsNullOrEmpty(this._gameName) && !GUI.GetNameOfFocusedControl().Equals("GameName"))
-				{
-					GUI.color = new Color(1f, 1f, 1f, 0.3f);
-					GUI.Label(new Rect(128f, 12f, 200f, 19f), LocalizedStrings.EnterGameName, BlueStonez.label_interparkmed_11pt_left);
-					GUI.color = Color.white;
-				}
-				if (this._gameName.Length > 18)
-				{
-					this._gameName = this._gameName.Remove(18);
-				}
-			}
-			else
-			{
-				GUI.Label(new Rect(130f, 5f, this._textFieldWidth, 19f), this._gameName, BlueStonez.label);
-			}
-			GUI.Label(new Rect(130f + this._textFieldWidth + 16f, 5f, 100f, 19f), "(" + this._gameName.Length + "/18)", BlueStonez.label_interparkbold_11pt_left);
-			GUI.Label(new Rect(6f, 25f, 100f, 25f), LocalizedStrings.Password, BlueStonez.label_interparkbold_18pt_left);
-			GUI.SetNextControlName("GamePasswd");
-			this._password = GUI.PasswordField(new Rect(130f, 28f, this._textFieldWidth, 19f), this._password, '*', 8);
-			this._password = this._password.Trim(new char[]
-			{
-				'\n'
-			});
-			if (string.IsNullOrEmpty(this._password) && !GUI.GetNameOfFocusedControl().Equals("GamePasswd"))
-			{
-				GUI.color = new Color(1f, 1f, 1f, 0.3f);
-				GUI.Label(new Rect(138f, 33f, 200f, 19f), "No password", BlueStonez.label_interparkmed_11pt_left);
-				GUI.color = Color.white;
-			}
-			if (this._password.Length > 8)
-			{
-				this._password = this._password.Remove(8);
-			}
-			GUI.Label(new Rect(130f + this._textFieldWidth + 16f, 28f, 100f, 19f), "(" + this._password.Length + "/8)", BlueStonez.label_interparkbold_11pt_left);
-			GUI.Label(new Rect(6f, 55f, 110f, 25f), LocalizedStrings.MaxPlayers, BlueStonez.label_interparkbold_18pt_left);
-			GUI.Label(new Rect(130f, 60f, 33f, 15f), Mathf.RoundToInt((float)mapSettings.PlayersCurrent).ToString(), BlueStonez.label_dropdown);
-			mapSettings.PlayersCurrent = ((!ApplicationDataManager.IsMobile) ? mapSettings.PlayersCurrent : Mathf.Clamp(mapSettings.PlayersCurrent, 0, 6));
-			mapSettings.PlayersCurrent = (int)GUI.HorizontalSlider(new Rect(170f, 60f, this._sliderWidth, 15f), (float)mapSettings.PlayersCurrent, (float)mapSettings.PlayersMin, (float)mapSettings.PlayersMax);
-			int num = Mathf.RoundToInt((float)(mapSettings.TimeCurrent / 60));
-			GUI.Label(new Rect(6f, 83f, 100f, 25f), LocalizedStrings.TimeLimit, BlueStonez.label_interparkbold_18pt_left);
-			GUI.Label(new Rect(130f, 83f, 33f, 15f), num.ToString(), BlueStonez.label_dropdown);
-			mapSettings.TimeCurrent = 60 * (int)GUI.HorizontalSlider(new Rect(170f, 86f, this._sliderWidth, 15f), (float)num, (float)(mapSettings.TimeMin / 60), 10f);
-			GUI.Label(new Rect(6f, 106f, 100f, 25f), LocalizedStrings.MaxKills, BlueStonez.label_interparkbold_18pt_left);
-			GUI.Label(new Rect(130f, 106f, 33f, 15f), mapSettings.KillsCurrent.ToString(), BlueStonez.label_dropdown);
-			mapSettings.KillsCurrent = (int)GUI.HorizontalSlider(new Rect(170f, 109f, this._sliderWidth, 15f), (float)mapSettings.KillsCurrent, (float)mapSettings.KillsMin, 200f);
-			GUI.Label(new Rect(6f, 150f, 100f, 25f), "Min Level", BlueStonez.label_interparkbold_18pt_left);
-			GUI.Label(new Rect(130f, 150f, 33f, 15f), (this._minLevelCurrent != 1) ? this._minLevelCurrent.ToString() : "All", BlueStonez.label_dropdown);
-			int num2 = (int)GUI.HorizontalSlider(new Rect(170f, 153f, this._sliderWidth, 15f), (float)this._minLevelCurrent, 1f, 80f);
-			if (num2 != this._minLevelCurrent)
-			{
-				this._minLevelCurrent = num2;
-				this._maxLevelCurrent = Mathf.Clamp(this._maxLevelCurrent, this._minLevelCurrent, 80);
-			}
-			GUI.Label(new Rect(6f, 172f, 100f, 25f), "Max Level", BlueStonez.label_interparkbold_18pt_left);
-			GUI.Label(new Rect(130f, 172f, 33f, 15f), (this._maxLevelCurrent != 80) ? this._maxLevelCurrent.ToString() : "All", BlueStonez.label_dropdown);
-			int num3 = (int)GUI.HorizontalSlider(new Rect(170f, 175f, this._sliderWidth, 15f), (float)this._maxLevelCurrent, 1f, 80f);
-			if (num3 != this._maxLevelCurrent)
-			{
-				this._maxLevelCurrent = num3;
-				this._minLevelCurrent = Mathf.Clamp(this._minLevelCurrent, 1, this._maxLevelCurrent);
-			}
-			if (!GameRoomHelper.IsLevelAllowed(this._minLevelCurrent, this._maxLevelCurrent, PlayerDataManager.PlayerLevel) && this._minLevelCurrent > PlayerDataManager.PlayerLevel)
-			{
-				GUI.contentColor = Color.red;
-				GUI.Label(new Rect(170f, 190f, this._sliderWidth, 25f), "MinLevel is too high for you!", BlueStonez.label_interparkbold_11pt);
-				GUI.contentColor = Color.white;
-			}
-			else if (!GameRoomHelper.IsLevelAllowed(this._minLevelCurrent, this._maxLevelCurrent, PlayerDataManager.PlayerLevel) && this._maxLevelCurrent < PlayerDataManager.PlayerLevel)
-			{
-				GUI.contentColor = Color.red;
-				GUI.Label(new Rect(170f, 190f, this._sliderWidth, 25f), "MaxLevel is too low for you!", BlueStonez.label_interparkbold_11pt);
-				GUI.contentColor = Color.white;
-			}
+    // Token: 0x06000CC6 RID: 3270 RVA: 0x000568FC File Offset: 0x00054AFC
+    private void DrawGameConfiguration(Rect rect)
+    {
+        if (this.IsModeSupported)
+        {
+            MapSettings mapSettings = this._mapSelected.View.Settings[this._modeSelection.Current];
+            if (ApplicationDataManager.IsMobile)
+            {
+                mapSettings.PlayersMax = Mathf.Min(mapSettings.PlayersMax, 6);
+            }
+            GUI.BeginGroup(rect);
+            GUI.Label(new Rect(6f, 0f, 100f, 25f), LocalizedStrings.GameName, BlueStonez.label_interparkbold_18pt_left);
+            if (PlayerDataManager.AccessLevel >= MemberAccessLevel.Moderator)
+            {
+                GUI.SetNextControlName("GameName");
+                this._gameName = GUI.TextField(new Rect(130f, 5f, this._textFieldWidth, 19f), this._gameName, 18, BlueStonez.textField);
+                if (string.IsNullOrEmpty(this._gameName) && !GUI.GetNameOfFocusedControl().Equals("GameName"))
+                {
+                    GUI.color = new Color(1f, 1f, 1f, 0.3f);
+                    GUI.Label(new Rect(128f, 12f, 200f, 19f), LocalizedStrings.EnterGameName, BlueStonez.label_interparkmed_11pt_left);
+                    GUI.color = Color.white;
+                }
+                if (this._gameName.Length > 18)
+                {
+                    this._gameName = this._gameName.Remove(18);
+                }
+            }
+            else
+            {
+                GUI.Label(new Rect(130f, 5f, this._textFieldWidth, 19f), this._gameName, BlueStonez.label);
+            }
+            GUI.Label(new Rect(130f + this._textFieldWidth + 16f, 5f, 100f, 19f), "(" + this._gameName.Length + "/18)", BlueStonez.label_interparkbold_11pt_left);
+            GUI.Label(new Rect(6f, 25f, 100f, 25f), LocalizedStrings.Password, BlueStonez.label_interparkbold_18pt_left);
+            GUI.SetNextControlName("GamePasswd");
+            this._password = GUI.PasswordField(new Rect(130f, 28f, this._textFieldWidth, 19f), this._password, '*', 8);
+            this._password = this._password.Trim(new char[]
+            {
+                '\n'
+            });
+            if (string.IsNullOrEmpty(this._password) && !GUI.GetNameOfFocusedControl().Equals("GamePasswd"))
+            {
+                GUI.color = new Color(1f, 1f, 1f, 0.3f);
+                GUI.Label(new Rect(138f, 33f, 200f, 19f), "No password", BlueStonez.label_interparkmed_11pt_left);
+                GUI.color = Color.white;
+            }
+            if (this._password.Length > 8)
+            {
+                this._password = this._password.Remove(8);
+            }
+            GUI.Label(new Rect(130f + this._textFieldWidth + 16f, 28f, 100f, 19f), "(" + this._password.Length + "/8)", BlueStonez.label_interparkbold_11pt_left);
+            GUI.Label(new Rect(6f, 55f, 110f, 25f), LocalizedStrings.MaxPlayers, BlueStonez.label_interparkbold_18pt_left);
+            GUI.Label(new Rect(130f, 60f, 33f, 15f), Mathf.RoundToInt((float)mapSettings.PlayersCurrent).ToString(), BlueStonez.label_dropdown);
+            mapSettings.PlayersCurrent = ((!ApplicationDataManager.IsMobile) ? mapSettings.PlayersCurrent : Mathf.Clamp(mapSettings.PlayersCurrent, 0, 6));
+            mapSettings.PlayersCurrent = (int)GUI.HorizontalSlider(new Rect(170f, 60f, this._sliderWidth, 15f), (float)mapSettings.PlayersCurrent, (float)mapSettings.PlayersMin, (float)mapSettings.PlayersMax);
+            int num = Mathf.RoundToInt((float)(mapSettings.TimeCurrent / 60));
+            GUI.Label(new Rect(6f, 83f, 100f, 25f), LocalizedStrings.TimeLimit, BlueStonez.label_interparkbold_18pt_left);
+            GUI.Label(new Rect(130f, 83f, 33f, 15f), num.ToString(), BlueStonez.label_dropdown);
+            mapSettings.TimeCurrent = 60 * (int)GUI.HorizontalSlider(new Rect(170f, 86f, this._sliderWidth, 15f), (float)num, (float)(mapSettings.TimeMin / 60), 20f);
+            GUI.Label(new Rect(6f, 106f, 100f, 25f), LocalizedStrings.MaxKills, BlueStonez.label_interparkbold_18pt_left);
+            GUI.Label(new Rect(130f, 106f, 33f, 15f), mapSettings.KillsCurrent.ToString(), BlueStonez.label_dropdown);
+            mapSettings.KillsCurrent = (int)GUI.HorizontalSlider(new Rect(170f, 109f, this._sliderWidth, 15f), (float)mapSettings.KillsCurrent, (float)mapSettings.KillsMin, 200f);
+            GUI.Label(new Rect(6f, 150f, 100f, 25f), "Min Level", BlueStonez.label_interparkbold_18pt_left);
+            GUI.Label(new Rect(130f, 150f, 33f, 15f), (this._minLevelCurrent != 1) ? this._minLevelCurrent.ToString() : "All", BlueStonez.label_dropdown);
+            int num2 = (int)GUI.HorizontalSlider(new Rect(170f, 153f, this._sliderWidth, 15f), (float)this._minLevelCurrent, 1f, 80f);
+            if (num2 != this._minLevelCurrent)
+            {
+                this._minLevelCurrent = num2;
+                this._maxLevelCurrent = Mathf.Clamp(this._maxLevelCurrent, this._minLevelCurrent, 80);
+            }
+            GUI.Label(new Rect(6f, 172f, 100f, 25f), "Max Level", BlueStonez.label_interparkbold_18pt_left);
+            GUI.Label(new Rect(130f, 172f, 33f, 15f), (this._maxLevelCurrent != 80) ? this._maxLevelCurrent.ToString() : "All", BlueStonez.label_dropdown);
+            int num3 = (int)GUI.HorizontalSlider(new Rect(170f, 175f, this._sliderWidth, 15f), (float)this._maxLevelCurrent, 1f, 80f);
+            if (num3 != this._maxLevelCurrent)
+            {
+                this._maxLevelCurrent = num3;
+                this._minLevelCurrent = Mathf.Clamp(this._minLevelCurrent, 1, this._maxLevelCurrent);
+            }
+            if (!GameRoomHelper.IsLevelAllowed(this._minLevelCurrent, this._maxLevelCurrent, PlayerDataManager.PlayerLevel) && this._minLevelCurrent > PlayerDataManager.PlayerLevel)
+            {
+                GUI.contentColor = Color.red;
+                GUI.Label(new Rect(170f, 190f, this._sliderWidth, 25f), "MinLevel is too high for you!", BlueStonez.label_interparkbold_11pt);
+                GUI.contentColor = Color.white;
+            }
+            else if (!GameRoomHelper.IsLevelAllowed(this._minLevelCurrent, this._maxLevelCurrent, PlayerDataManager.PlayerLevel) && this._maxLevelCurrent < PlayerDataManager.PlayerLevel)
+            {
+                GUI.contentColor = Color.red;
+                GUI.Label(new Rect(170f, 190f, this._sliderWidth, 25f), "MaxLevel is too low for you!", BlueStonez.label_interparkbold_11pt);
+                GUI.contentColor = Color.white;
+            }
 
             var counter = 1;
             var flags = Enum.GetValues(typeof(GameFlags.GAME_FLAGS));
-            
             for (int i = 1; i < (int)flags.GetValue(flags.Length - 1) + 1; i *= 2)
             {
                 var gameFlag = (GameFlags.GAME_FLAGS)i;
+                var gameFlagTitle = Regex.Replace(gameFlag.ToString(), @"((?<=\p{Ll})\p{Lu})|((?!\A)\p{Lu}(?>\p{Ll}))", " $0");
                 var y = 200 + (20 * Math.Ceiling(counter / 2f));
                 var column = counter;
                 while (column > 2)
                     column -= 2;
                 var x = 8 + ((column - 1) * 165f);
-
-                ToggleGameFlag(gameFlag, (int)y, (int)x, gameFlag.ToString());
+                
+                switch (gameFlag)
+                {
+                    case GameFlags.GAME_FLAGS.LowGravity:
+                        bool flag1 = GUI.Toggle(new Rect(x, (float)y, 160f, 16f), _gameFlags.LowGravity, gameFlagTitle, BlueStonez.toggle);
+                        if (_gameFlags.LowGravity != flag1)
+                            _gameFlags.LowGravity = !_gameFlags.LowGravity;
+                        break;
+                    case GameFlags.GAME_FLAGS.NoArmor:
+                        bool flag2 = GUI.Toggle(new Rect(x, (float)y, 160f, 16f), _gameFlags.NoArmor, gameFlagTitle, BlueStonez.toggle);
+                        if (_gameFlags.NoArmor != flag2)
+                            _gameFlags.NoArmor = !_gameFlags.NoArmor;
+                        break;
+                    case GameFlags.GAME_FLAGS.QuickSwitch:
+                        bool flag3 = GUI.Toggle(new Rect(x, (float)y, 160f, 16f), _gameFlags.QuickSwitch, gameFlagTitle, BlueStonez.toggle);
+                        if (_gameFlags.QuickSwitch != flag3)
+                            _gameFlags.QuickSwitch = !_gameFlags.QuickSwitch;
+                        break;
+                    case GameFlags.GAME_FLAGS.MeleeOnly:
+                        bool flag4 = GUI.Toggle(new Rect(x, (float)y, 160f, 16f), _gameFlags.MeleeOnly, gameFlagTitle, BlueStonez.toggle);
+                        if (_gameFlags.MeleeOnly != flag4)
+                            _gameFlags.MeleeOnly = !_gameFlags.MeleeOnly;
+                        break;
+                }
                 counter++;
             }
 
-			GUI.EndGroup();
-		}
-		else
-		{
-			GUI.Label(rect, "Unsupported Game Mode!", BlueStonez.label_interparkbold_18pt);
-		}
-	}
-
-    // Token: 0x06000CC7 RID: 3271 RVA: 0x000570B4 File Offset: 0x000552B4
-    private void ToggleGameFlag(GameFlags.GAME_FLAGS flag, int y, int x, string content)
-	{
-		bool flag2 = GUI.Toggle(new Rect(x, y, 160f, 16f), GameFlags.IsFlagSet(flag, (int)_gameFlags), content, BlueStonez.toggle);
-		if (flag2)
-		{
-			this._gameFlags |= flag;
-		}
-		else if (this._gameFlags == flag)
-		{
-			this._gameFlags -= flag;
-		}
-	}
+            GUI.EndGroup();
+        }
+        else
+        {
+            GUI.Label(rect, "Unsupported Game Mode!", BlueStonez.label_interparkbold_18pt);
+        }
+    }
 
 	// Token: 0x1700032E RID: 814
 	// (get) Token: 0x06000CC8 RID: 3272 RVA: 0x000098D9 File Offset: 0x00007AD9
@@ -448,7 +459,7 @@ public class CreateGamePanelGUI : MonoBehaviour, IPanelGui
 			MapSettings mapSettings = this._mapSelected.View.Settings[this._modeSelection.Current];
 			int timeMinutes = Mathf.RoundToInt((float)(mapSettings.TimeCurrent / 60)) * 60;
 			string connectionString = Singleton<GameServerController>.Instance.SelectedServer.ConnectionString;
-			Singleton<GameStateController>.Instance.CreateNetworkGame(connectionString, this._mapSelected.Id, this._modeSelection.Current, this._gameName, this._password, timeMinutes, mapSettings.KillsCurrent, mapSettings.PlayersCurrent, this._minLevelCurrent, this._maxLevelCurrent, this._gameFlags);
+			Singleton<GameStateController>.Instance.CreateNetworkGame(connectionString, this._mapSelected.Id, this._modeSelection.Current, this._gameName, this._password, timeMinutes, mapSettings.KillsCurrent, mapSettings.PlayersCurrent, this._minLevelCurrent, this._maxLevelCurrent, (GameFlags.GAME_FLAGS)_gameFlags.ToInt());
 		}
 		GUITools.PopGUIState();
 		GUI.EndGroup();
@@ -524,7 +535,7 @@ public class CreateGamePanelGUI : MonoBehaviour, IPanelGui
 			PanelManager.Instance.ClosePanel(PanelType.CreateGame);
 			MapSettings mapSettings = this._mapSelected.View.Settings[this._modeSelection.Current];
 			string connectionString = Singleton<GameServerController>.Instance.SelectedServer.ConnectionString;
-			Singleton<GameStateController>.Instance.CreateNetworkGame(connectionString, this._mapSelected.Id, this._modeSelection.Current, this._gameName, this._password, mapSettings.TimeCurrent, mapSettings.KillsCurrent, mapSettings.PlayersCurrent, this._minLevelCurrent, this._maxLevelCurrent, this._gameFlags);
+			Singleton<GameStateController>.Instance.CreateNetworkGame(connectionString, this._mapSelected.Id, this._modeSelection.Current, this._gameName, this._password, mapSettings.TimeCurrent, mapSettings.KillsCurrent, mapSettings.PlayersCurrent, this._minLevelCurrent, this._maxLevelCurrent, (GameFlags.GAME_FLAGS)_gameFlags.ToInt());
 		}
 		GUITools.PopGUIState();
 		GUI.EndGroup();
@@ -618,7 +629,7 @@ public class CreateGamePanelGUI : MonoBehaviour, IPanelGui
 	private bool _viewingLeft = true;
 
 	// Token: 0x04000C20 RID: 3104
-	private GameFlags.GAME_FLAGS _gameFlags;
+	private GameFlags _gameFlags = new GameFlags();
 
 	// Token: 0x04000C21 RID: 3105
 	private UberstrikeMap _mapSelected;

@@ -89,8 +89,8 @@ namespace UberStrike.Realtime.UnitySdk
 			this.gameFlags = ((!b) ? (this.gameFlags & ~f) : (this.gameFlags | f));
 		}
 
-		// Token: 0x060013AD RID: 5037 RVA: 0x0000C187 File Offset: 0x0000A387
-		public void SetFlags(int flags)
+        // Token: 0x060013AD RID: 5037 RVA: 0x0000C187 File Offset: 0x0000A387
+        public void SetFlags(int flags)
 		{
 			this.gameFlags = (GameFlags.GAME_FLAGS)flags;
 		}
