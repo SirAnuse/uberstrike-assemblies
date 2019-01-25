@@ -166,33 +166,38 @@ public class WeaponSlot
 		}
 	}
 
-	// Token: 0x0600206E RID: 8302 RVA: 0x0009AF60 File Offset: 0x00099160
+	/* Handle weapon secondary inputs. */
 	private void CreateWeaponInputHandler(WeaponItem item, IWeaponLogic logic, BaseWeaponDecorator decorator, bool isLocal)
 	{
-		switch (this.View.WeaponSecondaryAction)
-		{
-		case 1:
-		{
-			ZoomInfo zoomInfo = new ZoomInfo((float)this.View.DefaultZoomMultiplier, (float)this.View.MinZoomMultiplier, (float)this.View.MaxZoomMultiplier);
-			this.InputHandler = new SniperRifleInputHandler(logic, isLocal, zoomInfo, this.View);
-			break;
-		}
-		case 2:
-		{
-			ZoomInfo zoomInfo2 = new ZoomInfo((float)this.View.DefaultZoomMultiplier, (float)this.View.MinZoomMultiplier, (float)this.View.MaxZoomMultiplier);
-			this.InputHandler = new IronsightInputHandler(logic, isLocal, zoomInfo2, this.View);
-			break;
-		}
-		case 3:
-			this.InputHandler = new DefaultWeaponInputHandler(logic, isLocal, this.View, new GrenadeExplosionHander());
-			break;
-		case 4:
-			this.InputHandler = new MinigunInputHandler(logic, isLocal, decorator as MinigunWeaponDecorator, this.View);
-			break;
-		default:
-			this.InputHandler = new DefaultWeaponInputHandler(logic, isLocal, this.View, null);
-			break;
-		}
+        switch ((WeaponSecondaryAction)View.WeaponSecondaryAction)
+        {
+            /* Sniper sights, e.g. Scope on the Sniper Rifle. Aims down a scope texture.
+             * Alternatively, it may simply zoom in the screen without adding a scope, and maintaing a crosshair.
+             * This is exclusive to snipers with crosshairs. */
+            case WeaponSecondaryAction.SniperRifle:
+                ZoomInfo zoomInfo = new ZoomInfo((float)this.View.DefaultZoomMultiplier, (float)this.View.MinZoomMultiplier, (float)this.View.MaxZoomMultiplier);
+                this.InputHandler = new SniperRifleInputHandler(logic, isLocal, zoomInfo, this.View);
+                break;
+
+            /* Iron sights, e.g. ADS on Machine Gun. Basically aims down the physical gun model. */
+            case WeaponSecondaryAction.IronSight:
+                ZoomInfo zoomInfo2 = new ZoomInfo((float)this.View.DefaultZoomMultiplier, (float)this.View.MinZoomMultiplier, (float)this.View.MaxZoomMultiplier);
+                this.InputHandler = new IronsightInputHandler(logic, isLocal, zoomInfo2, this.View);
+                break;
+            /* Detonation trigger, e.g. The Final World. */
+            case WeaponSecondaryAction.ExplosionTrigger:
+                Debug.LogError("The ting go skrrt");
+                this.InputHandler = new DefaultWeaponInputHandler(logic, isLocal, this.View, new GrenadeExplosionHander());
+                break;
+            /* Windup time on the weapon, e.g. Battlesnake/Sabertooth. */
+            case WeaponSecondaryAction.Minigun:
+                this.InputHandler = new MinigunInputHandler(logic, isLocal, decorator as MinigunWeaponDecorator, this.View);
+                break;
+            /* No secondary action, only Left Click. Think of cannons, most launchers, most splatterguns. */
+            default:
+                this.InputHandler = new DefaultWeaponInputHandler(logic, isLocal, this.View, null);
+                break;
+        }
 	}
 
 	// Token: 0x17000708 RID: 1800

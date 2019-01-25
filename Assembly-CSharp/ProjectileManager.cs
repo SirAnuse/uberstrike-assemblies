@@ -82,6 +82,7 @@ public class ProjectileManager : Singleton<ProjectileManager>
 	// Token: 0x06001059 RID: 4185 RVA: 0x00065DE0 File Offset: 0x00063FE0
 	public void RemoveAllLimitedProjectiles(bool explode = true)
 	{
+        Debug.LogError("Removing all limited projectiles.");
 		int[] array = this._limitedProjectiles.ToArray();
 		for (int i = 0; i < array.Length; i++)
 		{

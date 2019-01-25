@@ -4,10 +4,8 @@ using UberStrike.Core.Models.Views;
 
 namespace UberStrike.Core.Serialization
 {
-	// Token: 0x02000297 RID: 663
 	public static class ApplicationConfigurationViewProxy
 	{
-		// Token: 0x060010D1 RID: 4305 RVA: 0x00017A94 File Offset: 0x00015C94
 		public static void Serialize(Stream stream, ApplicationConfigurationView instance)
 		{
 			int num = 0;
@@ -44,7 +42,6 @@ namespace UberStrike.Core.Serialization
 			}
 		}
 
-		// Token: 0x060010D2 RID: 4306 RVA: 0x00017BF8 File Offset: 0x00015DF8
 		public static ApplicationConfigurationView Deserialize(Stream bytes)
 		{
 			int num = Int32Proxy.Deserialize(bytes);

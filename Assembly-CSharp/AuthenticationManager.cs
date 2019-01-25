@@ -9,27 +9,20 @@ using UberStrike.Core.ViewModel;
 using UberStrike.WebService.Unity;
 using UnityEngine;
 
-// Token: 0x02000299 RID: 665
 public class AuthenticationManager : Singleton<AuthenticationManager>
 {
-	// Token: 0x06001245 RID: 4677 RVA: 0x0000C9F4 File Offset: 0x0000ABF4
 	private AuthenticationManager()
 	{
 		this._progress = new ProgressPopupDialog(LocalizedStrings.SettingUp, LocalizedStrings.ProcessingLogin, null);
 	}
 
-	// Token: 0x1700046C RID: 1132
-	// (get) Token: 0x06001246 RID: 4678 RVA: 0x0000CA12 File Offset: 0x0000AC12
-	// (set) Token: 0x06001247 RID: 4679 RVA: 0x0000CA1A File Offset: 0x0000AC1A
 	public bool IsAuthComplete { get; private set; }
 
-	// Token: 0x06001248 RID: 4680 RVA: 0x0000CA23 File Offset: 0x0000AC23
 	public void SetAuthComplete(bool enabled)
 	{
 		this.IsAuthComplete = enabled;
 	}
 
-	// Token: 0x06001249 RID: 4681 RVA: 0x0006D55C File Offset: 0x0006B75C
 	public void LoginByChannel()
 	{
 		string @string = PlayerPrefs.GetString("CurrentSteamUser", string.Empty);
@@ -58,7 +51,6 @@ public class AuthenticationManager : Singleton<AuthenticationManager>
 		}
 	}
 
-	// Token: 0x0600124A RID: 4682 RVA: 0x0006D614 File Offset: 0x0006B814
 	public IEnumerator StartLoginMemberEmail(string emailAddress, string password)
 	{
 		if (string.IsNullOrEmpty(emailAddress) || string.IsNullOrEmpty(password))
@@ -99,7 +91,6 @@ public class AuthenticationManager : Singleton<AuthenticationManager>
 		yield break;
 	}
 
-	// Token: 0x0600124B RID: 4683 RVA: 0x0006D64C File Offset: 0x0006B84C
 	public IEnumerator StartLoginMemberSteam(bool directSteamLogin)
 	{
 		if (directSteamLogin)
@@ -137,7 +128,6 @@ public class AuthenticationManager : Singleton<AuthenticationManager>
 		yield break;
 	}
 
-	// Token: 0x0600124C RID: 4684 RVA: 0x0006D678 File Offset: 0x0006B878
 	private void OnGetAuthSessionTicketResponse(GetAuthSessionTicketResponse_t pCallback)
 	{
 		Debug.Log(string.Concat(new object[]
@@ -151,7 +141,6 @@ public class AuthenticationManager : Singleton<AuthenticationManager>
 		}));
 	}
 
-	// Token: 0x0600124D RID: 4685 RVA: 0x0006D6D8 File Offset: 0x0006B8D8
 	private IEnumerator CompleteAuthentication(MemberAuthenticationResultView authView, bool isRegistrationLogin = false)
 	{
 		if (authView == null)
@@ -168,7 +157,7 @@ public class AuthenticationManager : Singleton<AuthenticationManager>
 		if (authView.MemberAuthenticationResult == MemberAuthenticationResult.InvalidEsns)
 		{
 			Debug.Log("Result: " + authView.MemberAuthenticationResult);
-			this.ShowLoginErrorPopup(LocalizedStrings.Error, "Sorry this account is linked already.");
+			this.ShowLoginErrorPopup(LocalizedStrings.Error, "Sorry, this account is linked already.");
 			yield break;
 		}
 		if (authView.MemberAuthenticationResult != MemberAuthenticationResult.Ok)
@@ -280,13 +269,11 @@ public class AuthenticationManager : Singleton<AuthenticationManager>
 		yield break;
 	}
 
-	// Token: 0x0600124E RID: 4686 RVA: 0x0000CA2C File Offset: 0x0000AC2C
 	public void StartLogout()
 	{
 		UnityRuntime.StartRoutine(this.Logout());
 	}
 
-	// Token: 0x0600124F RID: 4687 RVA: 0x0006D710 File Offset: 0x0006B910
 	private IEnumerator Logout()
 	{
 		if (GameState.Current.HasJoinedGame)
@@ -319,7 +306,6 @@ public class AuthenticationManager : Singleton<AuthenticationManager>
 		yield break;
 	}
 
-	// Token: 0x06001250 RID: 4688 RVA: 0x0000CA3A File Offset: 0x0000AC3A
 	private void ShowLoginErrorPopup(string title, string message)
 	{
 		Debug.Log("Login Error!");
@@ -331,9 +317,7 @@ public class AuthenticationManager : Singleton<AuthenticationManager>
 		});
 	}
 
-	// Token: 0x04001289 RID: 4745
 	private ProgressPopupDialog _progress;
 
-	// Token: 0x0400128A RID: 4746
 	private Callback<GetAuthSessionTicketResponse_t> m_GetAuthSessionTicketResponse;
 }
