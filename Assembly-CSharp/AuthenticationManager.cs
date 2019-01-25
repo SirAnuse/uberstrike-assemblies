@@ -13,14 +13,14 @@ public class AuthenticationManager : Singleton<AuthenticationManager>
 {
 	private AuthenticationManager()
 	{
-		this._progress = new ProgressPopupDialog(LocalizedStrings.SettingUp, LocalizedStrings.ProcessingLogin, null);
+		_progress = new ProgressPopupDialog(LocalizedStrings.SettingUp, LocalizedStrings.ProcessingLogin, null);
 	}
 
 	public bool IsAuthComplete { get; private set; }
 
 	public void SetAuthComplete(bool enabled)
 	{
-		this.IsAuthComplete = enabled;
+		IsAuthComplete = enabled;
 	}
 
 	public void LoginByChannel()
@@ -32,22 +32,22 @@ public class AuthenticationManager : Singleton<AuthenticationManager>
 			Debug.Log(string.Format("No SteamID saved. Using SteamWorks SteamID:{0}", PlayerDataManager.SteamId));
 			PopupSystem.ShowMessage(string.Empty, "Have you played UberStrike before?", PopupSystem.AlertType.OKCancel, delegate()
 			{
-				UnityRuntime.StartRoutine(this.StartLoginMemberSteam(true));
+				UnityRuntime.StartRoutine(StartLoginMemberSteam(true));
 			}, "No", delegate()
 			{
 				PopupSystem.ShowMessage(string.Empty, "Do you want to upgrade an UberStrike.com or Facebook account?\n\nNOTE: This will permenantly link your UberStrike account to this Steam ID", PopupSystem.AlertType.OKCancel, delegate()
 				{
-					UnityRuntime.StartRoutine(this.StartLoginMemberSteam(true));
+					UnityRuntime.StartRoutine(StartLoginMemberSteam(true));
 				}, "No", delegate()
 				{
-					UnityRuntime.StartRoutine(this.StartLoginMemberSteam(false));
+					UnityRuntime.StartRoutine(StartLoginMemberSteam(false));
 				}, "Yes");
 			}, "Yes");
 		}
 		else
 		{
 			Debug.Log(string.Format("Login using saved SteamID:{0}", @string));
-			UnityRuntime.StartRoutine(this.StartLoginMemberSteam(true));
+			UnityRuntime.StartRoutine(StartLoginMemberSteam(true));
 		}
 	}
 
@@ -55,12 +55,12 @@ public class AuthenticationManager : Singleton<AuthenticationManager>
 	{
 		if (string.IsNullOrEmpty(emailAddress) || string.IsNullOrEmpty(password))
 		{
-			this.ShowLoginErrorPopup(LocalizedStrings.Error, "Your login credentials are not correct. Please try to login again.");
+			ShowLoginErrorPopup(LocalizedStrings.Error, "Your login credentials are not correct. Please try to login again.");
 			yield break;
 		}
-		this._progress.Text = "Authenticating Account";
-		this._progress.Progress = 0.1f;
-		PopupSystem.Show(this._progress);
+		_progress.Text = "Authenticating Account";
+		_progress.Progress = 0.1f;
+		PopupSystem.Show(_progress);
 		MemberAuthenticationResultView authenticationView = null;
 		if (ApplicationDataManager.Channel == ChannelType.Steam)
 		{
@@ -84,10 +84,10 @@ public class AuthenticationManager : Singleton<AuthenticationManager>
 		}
 		if (authenticationView == null)
 		{
-			this.ShowLoginErrorPopup(LocalizedStrings.Error, "The login could not be processed. Please check your internet connection and try again.");
+			ShowLoginErrorPopup(LocalizedStrings.Error, "The login could not be processed. Please check your internet connection and try again.");
 			yield break;
 		}
-		yield return UnityRuntime.StartRoutine(this.CompleteAuthentication(authenticationView, false));
+		yield return UnityRuntime.StartRoutine(CompleteAuthentication(authenticationView, false));
 		yield break;
 	}
 
@@ -95,10 +95,10 @@ public class AuthenticationManager : Singleton<AuthenticationManager>
 	{
 		if (directSteamLogin)
 		{
-			this._progress.Text = "Authenticating with Steam";
-			this._progress.Progress = 0.05f;
-			PopupSystem.Show(this._progress);
-			this.m_GetAuthSessionTicketResponse = Callback<GetAuthSessionTicketResponse_t>.Create(new Callback<GetAuthSessionTicketResponse_t>.DispatchDelegate(this.OnGetAuthSessionTicketResponse));
+			_progress.Text = "Authenticating with Steam";
+			_progress.Progress = 0.05f;
+			PopupSystem.Show(_progress);
+			m_GetAuthSessionTicketResponse = Callback<GetAuthSessionTicketResponse_t>.Create(new Callback<GetAuthSessionTicketResponse_t>.DispatchDelegate(OnGetAuthSessionTicketResponse));
 			byte[] ticket = new byte[1024];
 			uint pcbTicket;
 			HAuthTicket authTicket = SteamUser.GetAuthSessionTicket(ticket, 1024, out pcbTicket);
@@ -106,8 +106,8 @@ public class AuthenticationManager : Singleton<AuthenticationManager>
 			string authToken = num.ToString();
 			string machineId = SystemInfo.deviceUniqueIdentifier;
 			MemberAuthenticationResultView authenticationView = null;
-			this._progress.Text = "Authenticating with UberStrike";
-			this._progress.Progress = 0.1f;
+			_progress.Text = "Authenticating with UberStrike";
+			_progress.Progress = 0.1f;
 			yield return AuthenticationWebServiceClient.LoginSteam(PlayerDataManager.SteamId, authToken, machineId, delegate(MemberAuthenticationResultView result)
 			{
 				authenticationView = result;
@@ -116,9 +116,9 @@ public class AuthenticationManager : Singleton<AuthenticationManager>
 			}, delegate(Exception error)
 			{
 				Debug.LogError("Account authentication error: " + error);
-				this.ShowLoginErrorPopup(LocalizedStrings.Error, "There was an error logging you in. Please try again or contact us at http://support.cmune.com");
+				ShowLoginErrorPopup(LocalizedStrings.Error, "There was an error logging you in. Please try again or contact us at http://support.cmune.com");
 			});
-			yield return UnityRuntime.StartRoutine(this.CompleteAuthentication(authenticationView, false));
+			yield return UnityRuntime.StartRoutine(CompleteAuthentication(authenticationView, false));
 		}
 		else
 		{
@@ -146,7 +146,7 @@ public class AuthenticationManager : Singleton<AuthenticationManager>
 		if (authView == null)
 		{
 			Debug.LogError("Account authentication error: MemberAuthenticationResultView was null, isRegistrationLogin: " + isRegistrationLogin);
-			this.ShowLoginErrorPopup(LocalizedStrings.Error, "There was an error logging you in. Please try again or contact us at http://support.cmune.com");
+			ShowLoginErrorPopup(LocalizedStrings.Error, "There was an error logging you in. Please try again or contact us at http://support.cmune.com");
 			yield break;
 		}
 		if (authView.MemberAuthenticationResult == MemberAuthenticationResult.IsBanned || authView.MemberAuthenticationResult == MemberAuthenticationResult.IsIpBanned)
@@ -157,13 +157,13 @@ public class AuthenticationManager : Singleton<AuthenticationManager>
 		if (authView.MemberAuthenticationResult == MemberAuthenticationResult.InvalidEsns)
 		{
 			Debug.Log("Result: " + authView.MemberAuthenticationResult);
-			this.ShowLoginErrorPopup(LocalizedStrings.Error, "Sorry, this account is linked already.");
+			ShowLoginErrorPopup(LocalizedStrings.Error, "Sorry, this account is linked already.");
 			yield break;
 		}
 		if (authView.MemberAuthenticationResult != MemberAuthenticationResult.Ok)
 		{
 			Debug.Log("Result: " + authView.MemberAuthenticationResult);
-			this.ShowLoginErrorPopup(LocalizedStrings.Error, "Your login credentials are not correct. Please try to login again.");
+			ShowLoginErrorPopup(LocalizedStrings.Error, "Your login credentials are not correct. Please try to login again.");
 			yield break;
 		}
 		Singleton<PlayerDataManager>.Instance.SetLocalPlayerMemberView(authView.MemberView);
@@ -175,11 +175,11 @@ public class AuthenticationManager : Singleton<AuthenticationManager>
 		}
 		ApplicationDataManager.ServerDateTime = authView.ServerTime;
 		global::EventHandler.Global.Fire(new GlobalEvents.Login(authView.MemberView.PublicProfile.AccessLevel));
-		this._progress.Text = LocalizedStrings.LoadingFriendsList;
-		this._progress.Progress = 0.2f;
+		_progress.Text = LocalizedStrings.LoadingFriendsList;
+		_progress.Progress = 0.2f;
 		yield return UnityRuntime.StartRoutine(Singleton<CommsManager>.Instance.GetContactsByGroups());
-		this._progress.Text = LocalizedStrings.LoadingCharacterData;
-		this._progress.Progress = 0.3f;
+		_progress.Text = LocalizedStrings.LoadingCharacterData;
+		_progress.Progress = 0.3f;
 		yield return ApplicationWebServiceClient.GetConfigurationData("4.7.1", delegate(ApplicationConfigurationView appConfigView)
 		{
 			XpPointsUtil.Config = appConfigView;
@@ -188,8 +188,8 @@ public class AuthenticationManager : Singleton<AuthenticationManager>
 			ApplicationDataManager.LockApplication(LocalizedStrings.ErrorLoadingData);
 		});
 		Singleton<PlayerDataManager>.Instance.SetPlayerStatisticsView(authView.PlayerStatisticsView);
-		this._progress.Text = LocalizedStrings.LoadingMapData;
-		this._progress.Progress = 0.5f;
+		_progress.Text = LocalizedStrings.LoadingMapData;
+		_progress.Progress = 0.5f;
 		bool mapsLoadedSuccessfully = false;
 		yield return ApplicationWebServiceClient.GetMaps("4.7.1", DefinitionType.StandardDefinition, delegate(List<MapView> callback)
 		{
@@ -200,39 +200,39 @@ public class AuthenticationManager : Singleton<AuthenticationManager>
 		});
 		if (!mapsLoadedSuccessfully)
 		{
-			this.ShowLoginErrorPopup(LocalizedStrings.Error, LocalizedStrings.ErrorLoadingMapsSupport);
-			PopupSystem.HideMessage(this._progress);
+			ShowLoginErrorPopup(LocalizedStrings.Error, LocalizedStrings.ErrorLoadingMapsSupport);
+			PopupSystem.HideMessage(_progress);
 			yield break;
 		}
-		this._progress.Progress = 0.6f;
-		this._progress.Text = LocalizedStrings.LoadingWeaponAndGear;
+		_progress.Progress = 0.6f;
+		_progress.Text = LocalizedStrings.LoadingWeaponAndGear;
 		yield return UnityRuntime.StartRoutine(Singleton<ItemManager>.Instance.StartGetShop());
 		if (!Singleton<ItemManager>.Instance.ValidateItemMall())
 		{
-			PopupSystem.HideMessage(this._progress);
+			PopupSystem.HideMessage(_progress);
 			yield break;
 		}
-		this._progress.Progress = 0.7f;
-		this._progress.Text = LocalizedStrings.LoadingPlayerInventory;
+		_progress.Progress = 0.7f;
+		_progress.Text = LocalizedStrings.LoadingPlayerInventory;
 		yield return UnityRuntime.StartRoutine(Singleton<ItemManager>.Instance.StartGetInventory(false));
-		this._progress.Progress = 0.8f;
-		this._progress.Text = LocalizedStrings.GettingPlayerLoadout;
+		_progress.Progress = 0.8f;
+		_progress.Text = LocalizedStrings.GettingPlayerLoadout;
 		yield return UnityRuntime.StartRoutine(Singleton<PlayerDataManager>.Instance.StartGetLoadout());
 		if (!Singleton<LoadoutManager>.Instance.ValidateLoadout())
 		{
-			this.ShowLoginErrorPopup(LocalizedStrings.ErrorGettingPlayerLoadout, LocalizedStrings.ErrorGettingPlayerLoadoutSupport);
+			ShowLoginErrorPopup(LocalizedStrings.ErrorGettingPlayerLoadout, LocalizedStrings.ErrorGettingPlayerLoadoutSupport);
 			yield break;
 		}
-		this._progress.Progress = 0.85f;
-		this._progress.Text = LocalizedStrings.LoadingPlayerStatistics;
+		_progress.Progress = 0.85f;
+		_progress.Text = LocalizedStrings.LoadingPlayerStatistics;
 		yield return UnityRuntime.StartRoutine(Singleton<PlayerDataManager>.Instance.StartGetMember());
 		if (!Singleton<PlayerDataManager>.Instance.ValidateMemberData())
 		{
-			this.ShowLoginErrorPopup(LocalizedStrings.ErrorGettingPlayerStatistics, LocalizedStrings.ErrorPlayerStatisticsSupport);
+			ShowLoginErrorPopup(LocalizedStrings.ErrorGettingPlayerStatistics, LocalizedStrings.ErrorPlayerStatisticsSupport);
 			yield break;
 		}
-		this._progress.Progress = 0.9f;
-		this._progress.Text = LocalizedStrings.LoadingClanData;
+		_progress.Progress = 0.9f;
+		_progress.Text = LocalizedStrings.LoadingClanData;
 		yield return ClanWebServiceClient.GetMyClanId(PlayerDataManager.AuthToken, delegate(int id)
 		{
 			PlayerDataManager.ClanID = id;
@@ -248,14 +248,14 @@ public class AuthenticationManager : Singleton<AuthenticationManager>
 			{
 			});
 		}
-		GameState.Current.Avatar.SetDecorator(global::AvatarBuilder.CreateLocalAvatar());
+		GameState.Current.Avatar.SetDecorator(AvatarBuilder.CreateLocalAvatar());
 		GameState.Current.Avatar.UpdateAllWeapons();
 		yield return new WaitForEndOfFrame();
 		Singleton<InboxManager>.Instance.Initialize();
 		yield return new WaitForEndOfFrame();
 		Singleton<BundleManager>.Instance.Initialize();
 		yield return new WaitForEndOfFrame();
-		PopupSystem.HideMessage(this._progress);
+		PopupSystem.HideMessage(_progress);
 		if (!authView.IsAccountComplete)
 		{
 			PanelManager.Instance.OpenPanel(PanelType.CompleteAccount);
@@ -263,7 +263,7 @@ public class AuthenticationManager : Singleton<AuthenticationManager>
 		else
 		{
 			MenuPageManager.Instance.LoadPage(PageType.Home, false);
-			this.IsAuthComplete = true;
+			IsAuthComplete = true;
 		}
 		Debug.LogWarning(string.Format("AuthToken:{0}, MagicHash:{1}", PlayerDataManager.AuthToken, PlayerDataManager.MagicHash));
 		yield break;
@@ -271,7 +271,7 @@ public class AuthenticationManager : Singleton<AuthenticationManager>
 
 	public void StartLogout()
 	{
-		UnityRuntime.StartRoutine(this.Logout());
+		UnityRuntime.StartRoutine(Logout());
 	}
 
 	private IEnumerator Logout()
@@ -309,11 +309,11 @@ public class AuthenticationManager : Singleton<AuthenticationManager>
 	private void ShowLoginErrorPopup(string title, string message)
 	{
 		Debug.Log("Login Error!");
-		PopupSystem.HideMessage(this._progress);
+		PopupSystem.HideMessage(_progress);
 		PopupSystem.ShowMessage(title, message, PopupSystem.AlertType.OK, delegate()
 		{
 			LoginPanelGUI.ErrorMessage = string.Empty;
-			this.LoginByChannel();
+			LoginByChannel();
 		});
 	}
 
