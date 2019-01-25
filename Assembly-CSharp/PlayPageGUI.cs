@@ -994,7 +994,11 @@ public class PlayPageGUI : MonoBehaviour
 		{
 			result = "Melee Only";
 		}
-		return result;
+        else if (GameFlags.IsFlagSet(GameFlags.GAME_FLAGS.DefenseBonus, data.GameFlags))
+        {
+            result = "Defense Bonus";
+        }
+        return result;
 	}
 
     // Token: 0x06000BAF RID: 2991 RVA: 0x0004CE58 File Offset: 0x0004B058
