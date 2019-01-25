@@ -65,8 +65,20 @@ namespace UberStrike.Realtime.UnitySdk
 			}
 		}
 
-		// Token: 0x060013A9 RID: 5033 RVA: 0x0000C143 File Offset: 0x0000A343
-		public int ToInt()
+        public bool DefenseBonus
+        {
+            get
+            {
+                return this.IsFlagSet(GameFlags.GAME_FLAGS.DefenseBonus);
+            }
+            set
+            {
+                this.SetFlag(GameFlags.GAME_FLAGS.DefenseBonus, value);
+            }
+        }
+
+        // Token: 0x060013A9 RID: 5033 RVA: 0x0000C143 File Offset: 0x0000A343
+        public int ToInt()
 		{
 			return (int)this.gameFlags;
 		}
@@ -117,7 +129,8 @@ namespace UberStrike.Realtime.UnitySdk
 			// Token: 0x04000E14 RID: 3604
 			QuickSwitch = 4,
 			// Token: 0x04000E15 RID: 3605
-			MeleeOnly = 8
+			MeleeOnly = 8,
+            DefenseBonus = 16
 		}
 	}
 }

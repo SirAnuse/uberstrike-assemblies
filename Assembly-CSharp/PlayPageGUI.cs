@@ -997,8 +997,8 @@ public class PlayPageGUI : MonoBehaviour
 		return result;
 	}
 
-	// Token: 0x06000BAF RID: 2991 RVA: 0x0004CE58 File Offset: 0x0004B058
-	private string LevelRestrictionText(GameRoomData m)
+    // Token: 0x06000BAF RID: 2991 RVA: 0x0004CE58 File Offset: 0x0004B058
+    private string LevelRestrictionText(GameRoomData m)
 	{
 		if (!GameRoomHelper.HasLevelRestriction(m))
 		{

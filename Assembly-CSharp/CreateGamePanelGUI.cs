@@ -319,7 +319,7 @@ public class CreateGamePanelGUI : MonoBehaviour, IPanelGui
             int num = Mathf.RoundToInt((float)(mapSettings.TimeCurrent / 60));
             GUI.Label(new Rect(6f, 83f, 100f, 25f), LocalizedStrings.TimeLimit, BlueStonez.label_interparkbold_18pt_left);
             GUI.Label(new Rect(130f, 83f, 33f, 15f), num.ToString(), BlueStonez.label_dropdown);
-            mapSettings.TimeCurrent = 60 * (int)GUI.HorizontalSlider(new Rect(170f, 86f, this._sliderWidth, 15f), (float)num, (float)(mapSettings.TimeMin / 60), 20f);
+            mapSettings.TimeCurrent = 60 * (int)GUI.HorizontalSlider(new Rect(170f, 86f, this._sliderWidth, 15f), (float)num, (float)(mapSettings.TimeMin / 60), mapSettings.TimeMax / 60f);
             GUI.Label(new Rect(6f, 106f, 100f, 25f), LocalizedStrings.MaxKills, BlueStonez.label_interparkbold_18pt_left);
             GUI.Label(new Rect(130f, 106f, 33f, 15f), mapSettings.KillsCurrent.ToString(), BlueStonez.label_dropdown);
             mapSettings.KillsCurrent = (int)GUI.HorizontalSlider(new Rect(170f, 109f, this._sliderWidth, 15f), (float)mapSettings.KillsCurrent, (float)mapSettings.KillsMin, 200f);
@@ -385,6 +385,11 @@ public class CreateGamePanelGUI : MonoBehaviour, IPanelGui
                         bool flag4 = GUI.Toggle(new Rect(x, (float)y, 160f, 16f), _gameFlags.MeleeOnly, gameFlagTitle, BlueStonez.toggle);
                         if (_gameFlags.MeleeOnly != flag4)
                             _gameFlags.MeleeOnly = !_gameFlags.MeleeOnly;
+                        break;
+                    case GameFlags.GAME_FLAGS.DefenseBonus:
+                        bool flag5 = GUI.Toggle(new Rect(x, (float)y, 160f, 16f), _gameFlags.DefenseBonus, gameFlagTitle, BlueStonez.toggle);
+                        if (_gameFlags.DefenseBonus != flag5)
+                            _gameFlags.DefenseBonus = !_gameFlags.DefenseBonus;
                         break;
                 }
                 counter++;
