@@ -17,7 +17,9 @@ public static class GameAudio
 			Debug.LogError("Missing instance of the prefab with name: GameAudio!");
 			return;
 		}
-		GameAudio.HomeSceneBackground = component.Assets[0];
+        if (HomeSceneBackground == null)
+            HomeSceneBackground = component.Assets[0];
+
 		GameAudio.BigSplash = component.Assets[1];
 		GameAudio.ImpactCement1 = component.Assets[2];
 		GameAudio.ImpactCement2 = component.Assets[3];
@@ -207,7 +209,7 @@ public static class GameAudio
 	// Token: 0x17000101 RID: 257
 	// (get) Token: 0x060004CE RID: 1230 RVA: 0x00005626 File Offset: 0x00003826
 	// (set) Token: 0x060004CF RID: 1231 RVA: 0x0000562D File Offset: 0x0000382D
-	public static AudioClip HomeSceneBackground { get; private set; }
+	public static AudioClip HomeSceneBackground { get; set; }
 
 	// Token: 0x17000102 RID: 258
 	// (get) Token: 0x060004D0 RID: 1232 RVA: 0x00005635 File Offset: 0x00003835

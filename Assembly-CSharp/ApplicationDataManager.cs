@@ -19,6 +19,22 @@ public static class ApplicationDataManager
 		{
 			ApplicationDataManager.LockApplication("Failed to load '.uberstrok' host config.");
 		}
+        try
+        {
+            string hsbPath = Path.Combine(Application.dataPath, "HSB.ogg");
+            string url = "file:///" + hsbPath;
+            WWW hsb = new WWW(url);
+            
+            // delay until it's loaded.
+            // probably not the most efficient way of dealing with things?
+            while (hsb.progress < 1) ;
+            if (hsb.progress >= 1)
+                GameAudio.HomeSceneBackground = hsb.audioClip;
+        }
+        catch
+        {
+
+        }
 		ApplicationDataManager.IsDebug = true;
 		ApplicationDataManager.applicationDateTime = 0f;
 		ApplicationDataManager.serverDateTime = DateTime.Now;
