@@ -414,9 +414,7 @@ public class SfxManager : AutoMonoBehaviour<SfxManager>
 	// Token: 0x06001523 RID: 5411 RVA: 0x0000E2EE File Offset: 0x0000C4EE
 	private IEnumerator CoPlayDelayedClip(AudioClip _clip, float _secondsDelay)
 	{
-		Debug.LogError("Waiting to play delayed clip...");
 		yield return new WaitForSeconds(_secondsDelay);
-		Debug.LogError("Playing delayed clip.");
 		AutoMonoBehaviour<SfxManager>.Instance.uiAudioSource.PlayOneShot(_clip);
 		yield break;
 	}

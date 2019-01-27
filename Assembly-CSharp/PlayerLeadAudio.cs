@@ -55,40 +55,29 @@ public class PlayerLeadAudio
 	// Token: 0x06000E91 RID: 3729 RVA: 0x00062848 File Offset: 0x00060A48
 	public void PlayKillsLeftAudio(int killsLeft)
 	{
-		Debug.LogError(string.Format("PlayKillsLeftAudio invoked: {0}.", killsLeft));
 		if (this.lastKillsLeftPlayed == killsLeft)
-		{
-			Debug.LogError(string.Format("lastKillsLeftPlayed is equal to killsLeft, cancelling. {0}, {1}.", this.lastKillsLeftPlayed, killsLeft));
 			return;
-		}
-		switch (killsLeft)
-		{
-		case 1:
-			Debug.LogError("Playing KillsLeft audio - one kill left.");
-			AutoMonoBehaviour<SfxManager>.Instance.Play2dAudioClip(GameAudio.KillLeft1, 2000UL, 1f, 1f);
-			break;
-		case 2:
-			Debug.LogError("Playing KillsLeft audio - two kills left.");
-			AutoMonoBehaviour<SfxManager>.Instance.Play2dAudioClip(GameAudio.KillLeft2, 2000UL, 1f, 1f);
-			break;
-		case 3:
-			Debug.LogError("Playing KillsLeft audio - three kills left.");
-			AutoMonoBehaviour<SfxManager>.Instance.Play2dAudioClip(GameAudio.KillLeft3, 2000UL, 1f, 1f);
-			break;
-		case 4:
-			Debug.LogError("Playing KillsLeft audio - four kills left.");
-			AutoMonoBehaviour<SfxManager>.Instance.Play2dAudioClip(GameAudio.KillLeft4, 2000UL, 1f, 1f);
-			break;
-		case 5:
-			Debug.LogError("Playing KillsLeft audio - five kills left.");
-			AutoMonoBehaviour<SfxManager>.Instance.Play2dAudioClip(GameAudio.KillLeft5, 2000UL, 1f, 1f);
-			break;
-		default:
-			Debug.LogError("Resolved to default.");
-			break;
-		}
+        switch (killsLeft)
+        {
+            case 1:
+                AutoMonoBehaviour<SfxManager>.Instance.Play2dAudioClip(GameAudio.KillLeft1, 2000UL, 1f, 1f);
+                break;
+            case 2:
+                AutoMonoBehaviour<SfxManager>.Instance.Play2dAudioClip(GameAudio.KillLeft2, 2000UL, 1f, 1f);
+                break;
+            case 3:
+                AutoMonoBehaviour<SfxManager>.Instance.Play2dAudioClip(GameAudio.KillLeft3, 2000UL, 1f, 1f);
+                break;
+            case 4:
+                AutoMonoBehaviour<SfxManager>.Instance.Play2dAudioClip(GameAudio.KillLeft4, 2000UL, 1f, 1f);
+                break;
+            case 5:
+                AutoMonoBehaviour<SfxManager>.Instance.Play2dAudioClip(GameAudio.KillLeft5, 2000UL, 1f, 1f);
+                break;
+            default:
+                break;
+        }
 		this.lastKillsLeftPlayed = killsLeft;
-		Debug.LogError(string.Format("lKLP set to killsLeft. {0}, {1}.", this.lastKillsLeftPlayed, killsLeft));
 	}
 
 	// Token: 0x04000D32 RID: 3378
