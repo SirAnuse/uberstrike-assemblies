@@ -385,8 +385,8 @@ namespace UberStrike.Core.Models.Views
 			}
 		}
 
-        [SerializeField]
-        private int _armorPierced;
+        //[SerializeField]
+        //private int _armorPierced;
 
 		// Token: 0x04000C5D RID: 3165
 		[SerializeField]

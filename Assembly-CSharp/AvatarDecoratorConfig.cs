@@ -100,11 +100,11 @@ public class AvatarDecoratorConfig : MonoBehaviour
 		if (componentInChildren != null)
 		{
 			this._skinColor = skinColor;
-			foreach (Material material in componentInChildren.materials)
+            foreach (Material material in componentInChildren.materials)
 			{
 				if (material.name.Contains("Skin"))
 				{
-					material.color = skinColor;
+                    material.color = skinColor;
 				}
 			}
 		}
